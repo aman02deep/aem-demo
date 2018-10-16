@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Meta Data"
+    sling:resourceType="granite/ui/components/foundation/section">
+    <layout
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"/>
+    <items jcr:primaryType="nt:unstructured">
+        <column
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/container">
+            <items jcr:primaryType="nt:unstructured">
+                <metaDataField
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/foundation/form/select"
+                    fieldLabel="Meta Data Field"
+                    name="./metaData">
+                    <items jcr:primaryType="nt:unstructured">
+                        <default
+                            jcr:primaryType="nt:unstructured"
+                            text="None"
+                            value=""/>
+                        <title
+                            jcr:primaryType="nt:unstructured"
+                            text="Title"
+                            value="jcr:title"/>
+                        <pageTitle
+                            jcr:primaryType="nt:unstructured"
+                            text="Page Title"
+                            value="pageTitle"/>
+                        <navigationTitle
+                            jcr:primaryType="nt:unstructured"
+                            text="Navigation Title"
+                            value="navTitle"/>
+                        <subTitle
+                            jcr:primaryType="nt:unstructured"
+                            text="Sub Title"
+                            value="subtitle" />
+                        <description
+                            jcr:primaryType="nt:unstructured"
+                            text="Description"
+                            value="jcr:description" />
+                        <publishDate
+                            jcr:primaryType="nt:unstructured"
+                            text="Publish date"
+                            value="cq:lastReplicated"/>
+                        <createdBy
+                            jcr:primaryType="nt:unstructured"
+                            text="Author name"
+                            value="jcr:createdBy"/>
+                    </items>
+                </metaDataField>
+            </items>
+        </column>
+    </items>
+</jcr:root>

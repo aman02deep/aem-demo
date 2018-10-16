@@ -3,28 +3,14 @@
     jcr:description="Template with focus on content."
     jcr:primaryType="cq:Template"
     jcr:title="AEMDemoApp Content Page"
-    allowedPaths="[/content/aem-demo-app/.+]"
+    allowedPaths="[/content/*]"
     ranking="{Long}100">
     <jcr:content
         jcr:primaryType="cq:PageContent"
         sling:resourceType="AEMDemoApp/components/structure/page">
-        <logo
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="AEMDemoApp/components/structure/logo"/>
-        <title
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="AEMDemoApp/components/content/title"/>
-        <topnav
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="AEMDemoApp/components/structure/topnav"/>
         <par
             jcr:primaryType="nt:unstructured"
             sling:resourceType="wcm/foundation/components/parsys">
-            <text
-                jcr:primaryType="nt:unstructured"
-                sling:resourceType="AEMDemoApp/components/content/text"
-                text="&lt;p>This is a content page&lt;/p>"
-                textIsRich="true"/>
         </par>
     </jcr:content>
 </jcr:root>

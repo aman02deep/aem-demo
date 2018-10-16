@@ -25,8 +25,8 @@
     <modules>
         <module>core</module>
         <module>ui.apps</module>
-        <module>ui.content</module>
-        <!--module>it.tests</module>
+        <!--module>ui.content</module>
+        <module>it.tests</module>
         <module>it.launcher</module-->
     </modules>
 
@@ -551,6 +551,13 @@
                 <version>1.4</version>
                 <scope>test</scope>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

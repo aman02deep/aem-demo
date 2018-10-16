@@ -1,0 +1,31 @@
+<sly data-sly-use.template="templates.html" />
+<sly data-sly-test.paddingTop="${properties.verticalAlign == 'align-bottom' || properties.disablePaddingTop ? 'pt-0' : 'pt-4'}" />
+<sly data-sly-test.paddingBottom="${properties.disablePaddingBottom ? 'pb-0' : 'pb-4'}" />
+<sly data-sly-use.adapter="com.aem.demo.core.models.PageSectionModel" />
+
+<div class="${adapter.ratio == 'container-ratio-21-9' ? adapter.ratio : ''} ${properties.backgroundColor}">
+    <sly data-sly-call="${template.legal @ color=properties.legalLineTextColor,
+        text=properties.legalLineText,
+        image=properties.legalLogoFileReference}" />
+
+    <div class="section-background-wrapper
+        ${adapter.ratio != 'media' ? 'section-overlay' : ''}
+        ${adapter.hasBackgroundVideo ? 'has-background-video' : ''}
+        ${adapter.hasBackgroundImage ? 'has-background-image' : ''}">
+        <div class="section-background">
+            <!--sly data-sly-resource="${ @path='image', resourceType='nlgeneric/components/content/image', wcmmode='disabled'}"/-->
+
+            <sly data-sly-call="${template.video @ properties=properties}" />
+
+            <div class="section-background-gradient" data-sly-unwrap="${!properties.showGradient}"></div>
+        </div>
+    </div>
+
+    <div class="container section-content ${properties.textColor} ${properties.textAlign} ${adapter.ratio != 'content' ? 'section-overlay' : ''} mb-0 ${paddingTop} ${paddingBottom}">
+        <div class="d-table h-100 w-100" data-sly-unwrap="${!properties.verticalAlign}">
+            <div class="d-table-cell ${properties.verticalAlign}" data-sly-unwrap="${!properties.verticalAlign}">
+                <sly data-sly-resource="${ @path='par', resourceType='foundation/components/parsys'}"/>
+            </div>
+        </div>
+    </div>
+</div>

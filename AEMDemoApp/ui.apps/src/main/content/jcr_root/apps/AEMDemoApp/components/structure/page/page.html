@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="${inheritedPageProperties.jcr:language}">
+
+<head>
+  <meta charset="utf-8">
+
+  <sly data-sly-include="partials/extlibs.html" />
+  <sly data-sly-include="partials/favicons.html" />
+
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>${currentPage.title || currentPage.name @ context='unsafe'}</title>
+  <meta name="keywords" content="${properties.keywords}" />
+  <meta name="description" content="${properties.jcr:description}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <sly data-sly-include="partials/headlibs.html" />
+</head>
+
+<body class="page ${currentPage.template.name}">
+<sly data-sly-include="partials/redirect.html" />
+<sly data-sly-include="partials/main.html" />
+<sly data-sly-include="partials/footlibs.html" />
+</body>
+</html>

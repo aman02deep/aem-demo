@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.aem.demo.core.core.models.HelloWorldModel;
+import com.aem.demo.core.models.HelloWorldModel;
 
 /** 
  *  Test case which uses OSGi services injection

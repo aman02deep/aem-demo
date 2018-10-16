@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:ClientLibraryFolder"
+    categories="[nl-generic.whitelabel.styles]"
+    cssClass="page-content-section-grey-background"
+    name="Grey background"
+    template="[/apps/nlgeneric/templates/page-content,/apps/nlgeneric/templates/page-home]"
+    flavour="[whitelabel]"
+    type="section" />
