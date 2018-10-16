@@ -2,5 +2,4 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/AEMDemoApp"/>
     <filter root="/apps/sling" />
-    <filter root="/etc/designs/AEMDemoApp"/>
 </workspaceFilter>
