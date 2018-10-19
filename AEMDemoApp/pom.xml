@@ -489,7 +489,8 @@
                 <groupId>com.adobe.cq</groupId>
                 <artifactId>core.wcm.components.all</artifactId>
                 <type>zip</type>
-                <version>1.0.6</version>
+                <scope>provided</scope>
+                <version>2.2.0</version>
             </dependency>
             <!-- Apache Sling Dependencies -->
             <dependency>

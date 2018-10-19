@@ -1,18 +1,21 @@
 <template data-sly-template.video="${@ properties}">
-    <sly data-sly-use="${'../../utils/setAttributes.js' @ image = false}" data-sly-test.hasBackgroundVideo="${properties.backgroundVideoType && (properties.id || properties.youtubeID)}" />
-    <sly data-sly-use.attrs="${'../../utils/getAttributes.js' @ names = ['image']}" data-sly-test="${hasBackgroundVideo}">
-        <div class="embed-responsive embed-responsive-16by9">
-            <sly data-sly-test="${properties.backgroundVideoType =='youtube'}" data-sly-call="${youtube @ id=properties.id}" />
-            <sly data-sly-test="${properties.backgroundVideoType =='vimeo'}" data-sly-call="${vimeo @ id=properties.id}" />
-            <sly data-sly-test="${properties.backgroundVideoType =='ooyala'}" data-sly-call="${ooyala @ id=properties.id}" />
-        </div>
-    </sly>
+    <div class="embed-responsive">
+      <sly data-sly-test="${properties.backgroundVideoType =='youtube'}"
+           data-sly-call="${youtube @ id=properties.id}"/>
+      <sly data-sly-test="${properties.backgroundVideoType =='vimeo'}"
+           data-sly-call="${vimeo @ id=properties.id}"/>
+    </div>
+  </sly>
 </template>
 
 <template data-sly-template.youtube="${@ id}">
-    <iframe title="video" class="embed-responsive-item" src="https://www.youtube.com/embed/${id}?controls=0&showinfo=0&rel=0&loop=1&autoplay=${wcmmode.disabled ? 1 : 0}" allowfullscreen></iframe>
+  <iframe title="video" class="embed-responsive-item"
+          src="https://www.youtube.com/embed/${id}?autoplay=${wcmmode.disabled ? 1 : 0}"
+          allowfullscreen></iframe>
 </template>
 
 <template data-sly-template.vimeo="${@ id}">
-    <iframe title="video" class="embed-responsive-item" src="https://player.vimeo.com/video/${id}?api=1&player_id=vimeo-player&background=1&loop=1&autoplay=${wcmmode.disabled ? 1 : 0}" allowfullscreen></iframe>
+  <iframe title="video" class="embed-responsive-item"
+          src="https://player.vimeo.com/video/${id}?api=1&player_id=vimeo-player&background=1&loop=1&autoplay=${wcmmode.disabled ? 1 : 0}"
+          allowfullscreen></iframe>
 </template>

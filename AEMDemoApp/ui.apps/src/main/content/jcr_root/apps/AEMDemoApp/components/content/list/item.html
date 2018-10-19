@@ -1,0 +1,87 @@
+<!--template data-sly-template.item="${@ list, item}">
+    <article>
+        <a class="cmp-list__item-link" href="${item.URL}" data-sly-unwrap="${!list.linkItems}">
+            <span class="cmp-list__item-title">${item.title}</span>
+            <span data-sly-test="${list.showModificationDate}"
+                  class="cmp-list__item-date">${list.dateFormatString @format=item.lastModified}</span>
+        </a>
+        <span data-sly-test="${list.showDescription}" class="cmp-list__item-description">${item.description}</span>
+    </article>
+</template-->
+
+
+<template data-sly-template.featureCard="${@ list, item, layout}">
+    <div class="card">
+        <h5 class="card-header">Featured</h5>
+        <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text">${item.description || 'item descriptio is missing'}</p>
+            <p class="card-text" data-sly-test="${list.showModificationDate}">
+                Last modified: ${list.dateFormatString @format=item.lastModified}
+            </p>
+            <a href="${item.URL}" class="btn btn-primary">More details..</a>
+        </div>
+    </div>
+</template>
+
+<template data-sly-template.productCard="${@ list, item, layout}">
+    <a data-sly-unwrap="${!list.linkItems}" href="${item.URL}">
+        <div class="card bg-dark text-danger">
+            <img class="card-img ${layout}" src="${item.pageImage || 'https://placehold.it/385x200/f48241/ffffff?text=placeholder'}" alt="${item.title}">
+            <div class="card-img-overlay">
+                <h5 class="card-title">${item.title}</h5>
+                <p class="card-text">${item.description}</p>
+                <p class="card-text" data-sly-test="${list.showModificationDate}">
+                    Last modified: ${list.dateFormatString @format=item.lastModified}
+                </p>
+            </div>
+        </div>
+    </a>
+</template>
+
+<template data-sly-template.generalCard="${@ list, item, layout}">
+    <div class="card" data-sly-test="${layout == 'verticalList'}">
+        <div class="row no-gutters">
+            <div class="col-sm-4">
+                <img src="/content/dam/we-retail/en/activities/hiking-camping/trekker-ama-dablam.jpg" class="img-fluid" alt="">
+            </div>
+            <div class="col">
+                <div class="card-body">
+                    <h4 class="card-title">${item.title}</h4>
+                    <p class="card-text" data-sly-test="${item.description}">
+                        ${item.description}
+                    </p>
+                    <a data-sly-unwrap="${!list.linkItems}" href="${item.URL}" class="btn btn-primary">
+                        Go to Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" data-sly-test="${layout == 'grid'}">
+        <img class="card-img-top" src="${item.pageImage || 'https://placehold.it/385x200/f48241/ffffff?text=placeholder'}" alt="${item.title}">
+        <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text" data-sly-test="${item.description}">
+                ${item.description}
+            </p>
+            <a data-sly-unwrap="${!list.linkItems}" href="${item.URL}" class="btn btn-primary">
+                Go to Page
+            </a>
+        </div>
+    </div>
+</template>
+
+<template data-sly-template.defaultCard="${@ list, item, layout}">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text" data-sly-test="${item.description}">${item.description}</p>
+            <p class="card-text" data-sly-test="${list.showModificationDate}">
+                Last modified: ${list.dateFormatString @format=item.lastModified}
+            </p>
+            <a data-sly-unwrap="${!list.linkItems}" href="${item.URL}" class="card-link">
+                Card link</a>
+        </div>
+    </div>
+</template>

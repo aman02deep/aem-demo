@@ -1,290 +1,295 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="nt:unstructured"
-    jcr:title="Section Properties"
-    sling:resourceType="cq/gui/components/authoring/dialog"
-    helpPath="/content/nlgeneric/documentation/components/section.html?wcmmode=disabled">
-    <content
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Section Properties"
+          sling:resourceType="cq/gui/components/authoring/dialog"
+          extraClientlibs="[core.wcm.components.list.v1.editor]">
+  <content
+      jcr:primaryType="nt:unstructured"
+      sling:resourceType="granite/ui/components/foundation/container">
+    <layout
         jcr:primaryType="nt:unstructured"
-        sling:resourceType="granite/ui/components/foundation/container">
+        sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+        type="nav"/>
+    <items jcr:primaryType="nt:unstructured">
+      <general
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Section Settings"
+          sling:resourceType="granite/ui/components/foundation/section">
         <layout
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
-            type="nav"/>
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
         <items jcr:primaryType="nt:unstructured">
-            <general
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Section Settings"
-                sling:resourceType="granite/ui/components/foundation/section">
-                <layout
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                    margin="{Boolean}false"/>
+          <column
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/foundation/container">
+            <items jcr:primaryType="nt:unstructured">
+              <width
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                  fieldLabel="Section Type"
+                  name="./width">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <text-align
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                fieldLabel="Horizontal Alignment"
-                                name="./textAlign">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <none
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Select an option"
-                                        value=""/>
-                                    <left
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Left"
-                                        value="text-left"/>
-                                    <center
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Center"
-                                        value="text-center"/>
-                                    <right
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Right"
-                                        value="text-right"/>
-                                </items>
-                            </text-align>
-                            <vertical-align
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Vertical Alignment"
-                                    name="./verticalAlign">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <none
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Select an option"
-                                        value=""/>
-                                    <top
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Top"
-                                        value="align-top"/>
-                                    <middle
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Middle"
-                                        value="align-middle"/>
-                                    <bottom
-                                        jcr:primaryType="nt:unstructured"
-                                        text="Bottom"
-                                        value="align-bottom"/>
-                                </items>
-                            </vertical-align>
-                            <ratio
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Height"
-                                    name="./ratio">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <content
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Content"
-                                            value="content"/>
-                                    <cinematic
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Cinematic (21:9)"
-                                            value="container-ratio-21-9"/>
-                                    <background
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Background Media"
-                                            value="media"/>
-                                </items>
-                            </ratio>
-                            <paddingTop
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                    name="./disablePaddingTop"
-                                    fieldDescription="Disable padding top"
-                                    text="Disable padding top"
-                                    value="{Boolean}true" />
-                            <paddingBottom
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                    name="./disablePaddingBottom"
-                                    fieldDescription="Disable padding bottom"
-                                    text="Disable padding bottom"
-                                    value="{Boolean}true" />
-                        </items>
-                    </column>
+                  <fixed
+                      jcr:primaryType="nt:unstructured"
+                      text="Fixed Container"
+                      value="container"
+                      selected="{Boolean}true"/>
+                  <fluid
+                      jcr:primaryType="nt:unstructured"
+                      text="Fluid Container"
+                      value="container-fluid"/>
                 </items>
-            </general>
-            <backGroundImage
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Background Settings"
-                sling:resourceType="granite/ui/components/foundation/section">
-                <layout
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
-                    margin="{Boolean}false"/>
+              </width>
+              <text-align
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                  fieldLabel="Horizontal Alignment"
+                  name="./textAlign">
                 <items jcr:primaryType="nt:unstructured">
-                    <column
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
-                            <background-color
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Background Color"
-                                    name="./backgroundColor">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <black
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Black (default)"
-                                            value="bg-black"/>
-                                    <white
-                                            jcr:primaryType="nt:unstructured"
-                                            text="White"
-                                            value="bg-white"/>
-                                    <light
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Light"
-                                            value="bg-light"/>
-                                    <dark
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Dark"
-                                            value="bg-dark"/>
-                                    <primary
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Primary"
-                                            value="bg-primary"/>
-                                </items>
-                            </background-color>
-                            <backgroundVideoType
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/select"
-                                    fieldLabel="Background Video Type"
-                                    name="./backgroundVideoType">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <none
-                                            jcr:primaryType="nt:unstructured"
-                                            text="No Background"
-                                            value=""/>
-                                    <vimeo
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Vimeo"
-                                            value="vimeo"/>
-                                    <youtube
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Youtube"
-                                            value="youtube"/>
-                                    <ooyala
-                                            jcr:primaryType="nt:unstructured"
-                                            text="Ooyala"
-                                            value="ooyala"/>
-                                </items>
-                            </backgroundVideoType>
-                            <videoId
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/textfield"
-                                    fieldDescription="Enter the video id"
-                                    fieldLabel="ID"
-                                    name="./id"/>
-                            <show-gradient
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/foundation/form/checkbox"
-                                    name="./showGradient"
-                                    fieldDescription="Show a gradient on top of the background"
-                                    text="Enable gradient"
-                                    value="{Boolean}true" />
-                        	<imageWell
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/container"
-                                class="foundation-layout-util-vmargin">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <well
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/container">
-                                        <layout
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
-                                        <items jcr:primaryType="nt:unstructured">
-                                            <backgroundImage
-				                                jcr:primaryType="nt:unstructured"
-				                                sling:resourceType="granite/ui/components/foundation/form/fileupload"
-				                                autoStart="{Boolean}false"
-				                                class="cq-droptarget"
-				                                fieldLabel="Background image"
-				                                fileNameParameter="./image/fileName"
-				                                mimeTypes="[image]"
-				                                multiple="{Boolean}false"
-				                                name="./image/file"
-				                                title="Upload Image Asset"
-				                                uploadUrl="${suffix.path}"
-				                                useHTML5="{Boolean}true" />  
-                                        </items>
-                                    </well>
-                                </items>
-                            </imageWell>
-                            <legal
-                                jcr:primaryType="nt:unstructured"
-                                sling:resourceType="granite/ui/components/foundation/container"
-                                class="foundation-layout-util-vmargin">
-                                <items jcr:primaryType="nt:unstructured">
-                                    <heading
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/heading"
-                                        class="coral-Heading coral-Heading--4"
-                                        level="{Long}4"
-                                        text="Legal information"/>
-                                    <well
-                                        jcr:primaryType="nt:unstructured"
-                                        sling:resourceType="granite/ui/components/foundation/container">
-                                        <layout
-                                            jcr:primaryType="nt:unstructured"
-                                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
-                                        <items jcr:primaryType="nt:unstructured">
-	                                        <legalLineText
-		                                        jcr:primaryType="nt:unstructured"
-		                                        sling:resourceType="granite/ui/components/foundation/form/textfield"
-		                                        class="coral-Heading coral-Heading--4"
-		                                        fieldLabel="Legal line text"
-		                                        name="./legalLineText"/>
-                                            <legalLineTextColor
-                                                jcr:primaryType="nt:unstructured"
-                                                sling:resourceType="granite/ui/components/foundation/form/select"
-                                                fieldLabel="Legal line text color"
-                                                name="./legalLineTextColor">
-                                                <items jcr:primaryType="nt:unstructured">
-                                                    <white
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="White (default)"
-                                                        value="white"/>
-                                                    <black
-                                                        jcr:primaryType="nt:unstructured"
-                                                        text="Black"
-                                                        value="black"/>
-                                                </items>
-                                            </legalLineTextColor>
-                                            <legalLogo
-				                                jcr:primaryType="nt:unstructured"
-				                                sling:resourceType="granite/ui/components/foundation/form/fileupload"
-				                                autoStart="{Boolean}false"
-				                                class="cq-droptarget"
-				                                fieldLabel="Legal logo"
-				                                fileNameParameter="./legalLogoFileName"
-				                                fileReferenceParameter="./legalLogoFileReference"
-				                                mimeTypes="[image]"
-				                                multiple="{Boolean}false"
-				                                name="./legalLogo"
-				                                title="Legal logo"
-				                                uploadUrl="${suffix.path}"
-				                                useHTML5="{Boolean}true" />  
-                                        </items>
-                                    </well>
-                                </items>
-                            </legal>
-                        </items>
-                    </column>
+                  <none
+                      jcr:primaryType="nt:unstructured"
+                      text="Select an option"
+                      value=""/>
+                  <left
+                      jcr:primaryType="nt:unstructured"
+                      text="Left"
+                      value="text-left"/>
+                  <center
+                      jcr:primaryType="nt:unstructured"
+                      text="Center"
+                      value="text-center"/>
+                  <right
+                      jcr:primaryType="nt:unstructured"
+                      text="Right"
+                      value="text-right"/>
                 </items>
-            </backGroundImage>
-            <contentShare
-                jcr:primaryType="nt:unstructured"
-                jcr:title="Content Share Settings"
-                sling:resourceType="granite/ui/components/foundation/include"
-                path="/apps/nlgeneric/components/content/utils/contentShare"/>
+              </text-align>
+              <vertical-align
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                  fieldLabel="Vertical Alignment"
+                  name="./verticalAlign">
+                <items jcr:primaryType="nt:unstructured">
+                  <none
+                      jcr:primaryType="nt:unstructured"
+                      text="Select an option"
+                      value=""/>
+                  <top
+                      jcr:primaryType="nt:unstructured"
+                      text="Top"
+                      value="align-top"/>
+                  <middle
+                      jcr:primaryType="nt:unstructured"
+                      text="Middle"
+                      value="align-middle"/>
+                  <bottom
+                      jcr:primaryType="nt:unstructured"
+                      text="Bottom"
+                      value="align-bottom"/>
+                </items>
+              </vertical-align>
+              <ratio
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                  fieldLabel="Height"
+                  name="./ratio">
+                <items jcr:primaryType="nt:unstructured">
+                  <content
+                      jcr:primaryType="nt:unstructured"
+                      text="Content"
+                      value="content"/>
+                  <cinematic
+                      jcr:primaryType="nt:unstructured"
+                      text="Cinematic (21:9)"
+                      value="container-ratio-21-9"/>
+                  <background
+                      jcr:primaryType="nt:unstructured"
+                      text="Background Media"
+                      value="media"/>
+                </items>
+              </ratio>
+              <paddingTop
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                  name="./disablePaddingTop"
+                  fieldDescription="Disable padding top"
+                  text="Disable padding top"
+                  value="{Boolean}true"/>
+              <paddingBottom
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                  name="./disablePaddingBottom"
+                  fieldDescription="Disable padding bottom"
+                  text="Disable padding bottom"
+                  value="{Boolean}true"/>
+            </items>
+          </column>
         </items>
-    </content>
+      </general>
+      <backGround
+          jcr:primaryType="nt:unstructured"
+          jcr:title="Background Settings"
+          sling:resourceType="granite/ui/components/foundation/section">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/fixedcolumns"
+            margin="{Boolean}false"/>
+        <items jcr:primaryType="nt:unstructured">
+          <column
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/foundation/container">
+            <items jcr:primaryType="nt:unstructured">
+              <bgType
+                  granite:class="cq-dialog-dropdown-showhide"
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                  fieldLabel="Background Type"
+                  name="./bgType">
+                <granite:data
+                    jcr:primaryType="nt:unstructured"
+                    cq-dialog-dropdown-showhide-target=".bg-option-bg-from-showhide-target"/>
+                <items jcr:primaryType="nt:unstructured">
+                  <none
+                      granite:hide="${cqDesign.disableChildren}"
+                      jcr:primaryType="nt:unstructured"
+                      text="None"
+                      selected="{Boolean}true"
+                      value=""/>
+                  <image
+                      granite:hide="${cqDesign.disableChildren}"
+                      jcr:primaryType="nt:unstructured"
+                      text="Image"
+                      value="image"/>
+                  <video
+                      granite:hide="${cqDesign.disableChildren}"
+                      jcr:primaryType="nt:unstructured"
+                      text="Video"
+                      value="video"/>
+                  <color
+                      granite:hide="${cqDesign.disableChildren}"
+                      jcr:primaryType="nt:unstructured"
+                      text="Color"
+                      value="color"/>
+                </items>
+              </bgType>
+              <bgImage
+                  granite:class="hide bg-option-bg-from-showhide-target foundation-layout-util-vmargin"
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/container">
+                <granite:data jcr:primaryType="nt:unstructured" showhidetargetvalue="image"/>
+                <items jcr:primaryType="nt:unstructured">
+                  <imageWell
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/foundation/container"
+                      class="foundation-layout-util-vmargin">
+                    <items jcr:primaryType="nt:unstructured">
+                      <well
+                          jcr:primaryType="nt:unstructured"
+                          sling:resourceType="granite/ui/components/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/foundation/layouts/well"/>
+                        <items jcr:primaryType="nt:unstructured">
+                          <backgroundImage
+                              jcr:primaryType="nt:unstructured"
+                              sling:resourceType="granite/ui/components/foundation/form/fileupload"
+                              autoStart="{Boolean}false"
+                              class="cq-droptarget"
+                              fieldLabel="Background image"
+                              fileNameParameter="./image/fileName"
+                              mimeTypes="[image]"
+                              multiple="{Boolean}false"
+                              name="./image/file"
+                              title="Upload Image Asset"
+                              uploadUrl="${suffix.path}"
+                              useHTML5="{Boolean}true"/>
+                        </items>
+                      </well>
+                    </items>
+                  </imageWell>
+                </items>
+              </bgImage>
+              <bgColor
+                  granite:class="hide bg-option-bg-from-showhide-target foundation-layout-util-vmargin"
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/container">
+                <granite:data jcr:primaryType="nt:unstructured" showhidetargetvalue="color"/>
+                <items jcr:primaryType="nt:unstructured">
+                  <background-color
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/foundation/form/select"
+                      fieldLabel="Background Color"
+                      name="./backgroundColor">
+                    <items jcr:primaryType="nt:unstructured">
+                      <black
+                          jcr:primaryType="nt:unstructured"
+                          text="Black (default)"
+                          value="bg-black"/>
+                      <white
+                          jcr:primaryType="nt:unstructured"
+                          text="White"
+                          value="bg-white"/>
+                      <light
+                          jcr:primaryType="nt:unstructured"
+                          text="Light"
+                          value="bg-light"/>
+                      <dark
+                          jcr:primaryType="nt:unstructured"
+                          text="Dark"
+                          value="bg-dark"/>
+                      <primary
+                          jcr:primaryType="nt:unstructured"
+                          text="Primary"
+                          value="bg-primary"/>
+                    </items>
+                  </background-color>
+                </items>
+              </bgColor>
+              <bgVideo
+                  granite:class="hide bg-option-bg-from-showhide-target foundation-layout-util-vmargin"
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/container">
+                <granite:data jcr:primaryType="nt:unstructured" showhidetargetvalue="video"/>
+                <items jcr:primaryType="nt:unstructured">
+                  <backgroundVideoType
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/foundation/form/select"
+                      fieldLabel="Background Video Type"
+                      name="./backgroundVideoType">
+                    <items jcr:primaryType="nt:unstructured">
+                      <vimeo
+                          jcr:primaryType="nt:unstructured"
+                          text="Vimeo"
+                          value="vimeo"/>
+                      <youtube
+                          jcr:primaryType="nt:unstructured"
+                          text="Youtube"
+                          value="youtube"/>
+                    </items>
+                  </backgroundVideoType>
+                  <videoId
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/foundation/form/textfield"
+                      fieldDescription="Enter the video id"
+                      fieldLabel="ID"
+                      name="./id"/>
+                </items>
+              </bgVideo>
+              <show-gradient
+                  jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/foundation/form/checkbox"
+                  name="./showGradient"
+                  fieldDescription="Show a gradient on top of the background"
+                  text="Enable gradient"
+                  value="{Boolean}true"/>
+            </items>
+          </column>
+        </items>
+      </backGround>
+    </items>
+  </content>
 </jcr:root>
