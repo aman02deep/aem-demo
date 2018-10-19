@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.jcr.RepositoryException;
@@ -74,10 +75,12 @@ import org.slf4j.LoggerFactory;
   private int limit;
 
   @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-  @Default(intValues = PN_DEPTH_DEFAULT) private int childDepth;
+  @Default(intValues = PN_DEPTH_DEFAULT)
+  private int childDepth;
 
   @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL)
-  @Default(values = StringUtils.EMPTY) private String query;
+  @Default(values = StringUtils.EMPTY)
+  private String query;
 
   @ValueMapValue(injectionStrategy = InjectionStrategy.OPTIONAL) @Default(intValues = 0)
   private int maxItems;
@@ -109,6 +112,8 @@ import org.slf4j.LoggerFactory;
 
   private PageManager pageManager;
   protected java.util.List<Page> listItems;
+
+  protected java.util.List<ListItem> listItemsHierarchy;
 
   @PostConstruct
   private void init() {
@@ -161,6 +166,28 @@ import org.slf4j.LoggerFactory;
       }
     }
     return listItems;
+  }
+
+  public Collection<ListItem> getListItemsHeirarchal() {
+    getPages();
+    return this.listItemsHierarchy;
+  }
+
+  private java.util.List<Object> getChildList(Object o) {
+    java.util.List lst = (java.util.List)o;
+    Iterator child =  lst.iterator();
+
+    java.util.List<Object> myList = new ArrayList();
+
+    while(child.hasNext()) {
+      Object ch = child.next();
+      if (ch instanceof java.util.List) {
+        myList.addAll(getChildList(ch));
+      } else {
+        myList.add(new PageListItemImpl(request, (Page)o));
+      }
+    }
+    return myList;
   }
 
   private Collection<Page> getPages() {
@@ -235,18 +262,44 @@ import org.slf4j.LoggerFactory;
     listItems = new ArrayList<>();
     Page rootPage = getRootPage(List.PN_PARENT_PAGE);
     if (rootPage != null) {
-      collectChildren(rootPage.getDepth(), rootPage);
+      //collectChildren(rootPage.getDepth(), rootPage);
+      populateChildListItemsHierarchy();
+
     }
   }
 
-  private void collectChildren(int startLevel, Page parent) {
+  private void populateChildListItemsHierarchy() {
+    listItemsHierarchy = new ArrayList<>();
+    Page rootPage = getRootPage(List.PN_PARENT_PAGE);
+    if (rootPage != null) {
+      Iterator<Page> childIterator = rootPage.listChildren();
+      iterateChildren(rootPage.getDepth(), childIterator, listItemsHierarchy);
+    }
+  }
+
+  /*private java.util.List<ListItem> collectChildren(int startLevel, Page parent) {
     Iterator<Page> childIterator = parent.listChildren();
+    java.util.List<Object> childList = new ArrayList<>();
+    iterateChildren(startLevel, childIterator, childList);
+    return childList;
+  }*/
+
+  private void iterateChildren(int startLevel, Iterator<Page> childIterator,
+      java.util.List<ListItem> listItemsHierarchy) {
     while (childIterator.hasNext()) {
       Page child = childIterator.next();
       listItems.add(child);
+
+      PageListItemImpl item = new PageListItemImpl(request, child);
       if (child.getDepth() - startLevel < childDepth) {
-        collectChildren(startLevel, child);
+
+        Iterator<Page> iterator = child.listChildren();
+        java.util.List<ListItem> childList = new ArrayList<>();
+        iterateChildren(startLevel, iterator, childList);
+        item.setChildListItems(childList);
+        //item.setChildListItems(collectChildren(startLevel, child));
       }
+      listItemsHierarchy.add(item);
     }
   }
 

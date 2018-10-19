@@ -1,0 +1,80 @@
+.section-component {
+  position: relative; }
+  .section-component .legal-line-container {
+    z-index: 1020;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    white-space: nowrap; }
+    .section-component .legal-line-container .legal-line {
+      position: absolute;
+      right: 0;
+      color: #fff;
+      -webkit-writing-mode: vertical-rl;
+          -ms-writing-mode: tb-rl;
+              writing-mode: vertical-rl; }
+    .section-component .legal-line-container .legal-line.white {
+      color: #fff; }
+    .section-component .legal-line-container .legal-line.black {
+      color: #000; }
+  .section-component .legal-logo {
+    position: absolute;
+    right: 3.2rem;
+    top: 2.4rem;
+    width: 4rem;
+    background-size: contain;
+    background-repeat: no-repeat; }
+    @media (min-width: 768px) {
+      .section-component .legal-logo {
+        right: 4rem;
+        top: 3rem;
+        width: 7.5rem; } }
+  @media (max-width: 991px) {
+    .section-component .section-background-wrapper .embed-responsive-item {
+      display: none; } }
+  .section-component .section-background-wrapper .section-background {
+    position: relative;
+    max-height: 100%;
+    overflow: hidden; }
+  .section-component .section-background-wrapper .img-fluid {
+    width: 100%; }
+  .section-component .section-background-wrapper .section-background-gradient {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+  .section-component .section-background-wrapper .ooyala-video-background {
+    z-index: 1000; }
+  .section-component .section-background-wrapper .ooyala-video-background .oo-player-skin {
+    display: none; }
+  .section-component .section-content {
+    position: relative;
+    z-index: 1000; }
+  .section-component .section-overlay {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+
+.container-ratio-21-9 .section-overlay {
+  position: relative; }
+
+@media (min-width: 992px) {
+  .has-background-video.has-background-image .section-background img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+  .container-ratio-21-9 {
+    padding-bottom: 39.0625%;
+    overflow: hidden; }
+    .container-ratio-21-9 .section-overlay {
+      position: absolute; } }
+
+@media (max-width: 991px) {
+  .has-background-image.has-background-video .embed-responsive {
+    display: none; } }

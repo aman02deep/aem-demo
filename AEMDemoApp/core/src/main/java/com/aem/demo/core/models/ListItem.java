@@ -17,4 +17,8 @@ public interface ListItem extends com.adobe.cq.wcm.core.components.models.ListIt
     throw new UnsupportedOperationException();
   }
 
+  default java.util.List<ListItem> getChildPageList() {
+    throw new UnsupportedOperationException();
+  }
+
 }

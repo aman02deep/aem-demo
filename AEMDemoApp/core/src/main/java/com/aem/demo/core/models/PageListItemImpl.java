@@ -1,7 +1,9 @@
 package com.aem.demo.core.models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,7 +15,6 @@ import org.apache.sling.api.resource.ValueMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.cq.wcm.core.components.internal.models.v2.PageImpl;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
@@ -24,11 +25,14 @@ public class PageListItemImpl implements ListItem {
   protected SlingHttpServletRequest request;
   protected Page page;
   protected Resource pageContentResource;
+  private java.util.List childListItems;
 
   public PageListItemImpl(SlingHttpServletRequest request,  Page page) {
     this.request = request;
     this.page = page;
     this.pageContentResource = page.getContentResource();
+    this.childListItems = new ArrayList();
+
     Page redirectTarget = getRedirectTarget(page);
     if (redirectTarget != null && !redirectTarget.equals(page)) {
       this.page = redirectTarget;
@@ -92,13 +96,22 @@ public class PageListItemImpl implements ListItem {
     return "";
   }
 
+  public void setChildListItems(java.util.List childListItems) {
+    this.childListItems = childListItems;
+  }
+
+  @Override
+  public java.util.List<ListItem> getChildPageList() {
+    return this.childListItems;
+  }
+
   private Page getRedirectTarget(Page page) {
     Page result = page;
     String redirectTarget;
     PageManager pageManager = page.getPageManager();
     Set<String> redirectCandidates = new LinkedHashSet<>();
     redirectCandidates.add(page.getPath());
-    while (result != null && StringUtils.isNotEmpty((redirectTarget = result.getProperties().get(PageImpl.PN_REDIRECT_TARGET, String.class)))) {
+    while (result != null && StringUtils.isNotEmpty((redirectTarget = result.getProperties().get("cq:redirectTarget", String.class)))) {
       result = pageManager.getPage(redirectTarget);
       if (result != null) {
         if (!redirectCandidates.add(result.getPath())) {
