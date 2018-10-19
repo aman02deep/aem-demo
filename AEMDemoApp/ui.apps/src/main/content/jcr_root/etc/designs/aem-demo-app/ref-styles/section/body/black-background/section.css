@@ -1,9 +1,0 @@
-.page-content-section-black-background {
-  background-color: #000000;
-  color: #ffffff; }
-  .page-content-section-black-background .card {
-    background-color: #000000;
-    border-color: rgba(255, 255, 255, 0.5); }
-  .page-content-section-black-background .card-header, .page-content-section-black-background .card-footer {
-    background-color: #333333;
-    color: #fff; }

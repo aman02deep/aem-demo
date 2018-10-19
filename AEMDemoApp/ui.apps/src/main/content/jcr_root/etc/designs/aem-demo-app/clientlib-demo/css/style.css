@@ -6753,14 +6753,14 @@ a.text-dark:focus, a.text-dark:hover {
   visibility: hidden !important; }
 
 @font-face {
-  font-family: 'nlgeneric';
-  src: url("/etc/designs/nlgeneric/external/css/fonts/nlgeneric/fonts/nlgeneric.ttf?v6i7xk") format("truetype"), url("/etc/designs/nlgeneric/external/css/fonts/nlgeneric/fonts/nlgeneric.woff?v6i7xk") format("woff"), url("/etc/designs/nlgeneric/external/css/fonts/nlgeneric/fonts/nlgeneric.svg?v6i7xk#nlgeneric") format("svg");
+  font-family: 'aem-demo-app';
+  src: url("/etc/designs/aem-demo-app/external/css/fonts/aem-demo-app/fonts/aem-demo-app.ttf?v6i7xk") format("truetype"), url("/etc/designs/aem-demo-app/external/css/fonts/aem-demo-app/fonts/aem-demo-app.woff?v6i7xk") format("woff"), url("/etc/designs/aem-demo-app/external/css/fonts/aem-demo-app/fonts/aem-demo-app.svg?v6i7xk#aem-demo-app") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 .icon {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'nlgeneric' !important;
+  font-family: 'aem-demo-app' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -7685,7 +7685,7 @@ button.swiper-pagination-bullet {
   .side-menu .nav-link.submenu-heading:after {
     content: '\e903';
     color: #343a40;
-    font-family: 'nlgeneric', sans-serif;
+    font-family: 'aem-demo-app', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;

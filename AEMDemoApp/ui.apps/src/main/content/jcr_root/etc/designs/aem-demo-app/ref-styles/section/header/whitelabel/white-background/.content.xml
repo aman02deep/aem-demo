@@ -4,6 +4,6 @@
     categories="[nl-generic.whitelabel.styles]"
     cssClass="page-header-section-white-background"
     name="White background"
-    template="[/apps/nlgeneric/templates/page-header]"
+    template="[/apps/aem-demo-app/templates/page-header]"
     flavour="[whitelabel]"
     type="section" />

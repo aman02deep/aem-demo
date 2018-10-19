@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-    jcr:primaryType="cq:ClientLibraryFolder"
-    categories="[nl-generic.whitelabel.styles,nl-generic.ziggo.styles]"
-    cssClass="page-content-section-orange-background"
-    name="Orange background"
-    template="[/apps/nlgeneric/templates/page-content,/apps/nlgeneric/templates/page-home]"
-    flavour="[]"
-    type="section" />
