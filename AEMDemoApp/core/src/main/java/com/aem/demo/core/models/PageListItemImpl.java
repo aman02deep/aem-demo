@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
-public class PageListItemImpl implements ListItem {
+public class PageListItemImpl implements ListItemOld {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PageListItemImpl.class);
 
@@ -101,7 +101,7 @@ public class PageListItemImpl implements ListItem {
   }
 
   @Override
-  public java.util.List<ListItem> getChildPageList() {
+  public java.util.List<ListItemOld> getChildPageList() {
     return this.childListItems;
   }
 

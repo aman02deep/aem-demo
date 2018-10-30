@@ -133,11 +133,11 @@
             <classifier>apis</classifier>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.all</artifactId>
             <type>zip</type>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>javax.jcr</groupId>

@@ -1,0 +1,52 @@
+<sly data-sly-use.list="com.aem.demo.core.models.ContentList"
+     data-sly-use.template="core/wcm/components/commons/v1/templates.html"></sly>
+
+<ol data-sly-list.item="${list.listItemsHierarchical}">
+  <li>
+    ${item.title} : ${item.URL}
+  </li>
+</ol>
+
+
+<div data-sly-test="${list.displayAs == 'card'}"
+     class="row"
+     data-sly-list.item="${list.listItems}"
+     data-sly-use.itemTemplate="item.html">
+  <sly data-sly-test.cardType="${item.properties.cardType || 'defaultCard'}"></sly>
+  <sly data-sly-test.layout="${list.layOut == 'grid' ? 'col-sm-4' : 'col-sm-12'}"></sly>
+  <div class="${layout} pb-4" data-sly-call="${itemTemplate[cardType] @ list = list, item = item, layout= list.layOut}"></div>
+</div>
+
+<sly data-sly-test="${list.displayAs == 'list'}">
+  <sly data-sly-test="${list.layOut == 'orderedList'}">
+    <ol data-sly-list.item="${list.listItems}">
+      <li>
+        <article>
+          <a class="cmp-list__item-link" href="${item.URL}" data-sly-unwrap="${!list.linkItems}">
+            <span class="cmp-list__item-title">${item.title}</span>
+            <span data-sly-test="${list.showModificationDate}"
+                  class="cmp-list__item-date">${list.dateFormatString @format=item.lastModified}</span>
+          </a>
+          <span data-sly-test="${list.showDescription}" class="cmp-list__item-description">${item.description}</span>
+        </article>
+      </li>
+    </ol>
+  </sly>
+  <sly data-sly-test="${list.layOut == 'noStyle'}">
+    <sly data-sly-list.item="${list.listItems}">
+      <article>
+        <a class="cmp-list__item-link" href="${item.URL}" data-sly-unwrap="${!list.linkItems}">
+          <span class="cmp-list__item-title">${item.title}</span>
+          <span data-sly-test="${list.showModificationDate}"
+                class="cmp-list__item-date">${list.dateFormatString @format=item.lastModified}</span>
+        </a>
+        <span data-sly-test="${list.showDescription}" class="cmp-list__item-description">${item.description}</span>
+      </article>
+    </sly>
+  </sly>
+
+</sly>
+
+<sly
+    data-sly-call="${template.placeholder @ isEmpty=list.listItems.size == 0, classAppend='cmp-list'}"></sly>
+

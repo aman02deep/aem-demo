@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.jcr.RepositoryException;
@@ -113,7 +112,7 @@ import org.slf4j.LoggerFactory;
   private PageManager pageManager;
   protected java.util.List<Page> listItems;
 
-  protected java.util.List<ListItem> listItemsHierarchy;
+  protected java.util.List<ListItemOld> listItemsHierarchy;
 
   @PostConstruct
   private void init() {
@@ -157,8 +156,8 @@ import org.slf4j.LoggerFactory;
     return listItems;
   }
 
-  public Collection<ListItem> getListItems() {
-    Collection<ListItem> listItems = new ArrayList<>();
+  public Collection<ListItemOld> getListItems() {
+    Collection<ListItemOld> listItems = new ArrayList<>();
     Collection<Page> pages = getPages();
     for (Page page : pages) {
       if (page != null) {
@@ -168,7 +167,7 @@ import org.slf4j.LoggerFactory;
     return listItems;
   }
 
-  public Collection<ListItem> getListItemsHeirarchal() {
+  public Collection<ListItemOld> getListItemsHeirarchal() {
     getPages();
     return this.listItemsHierarchy;
   }
@@ -285,7 +284,7 @@ import org.slf4j.LoggerFactory;
   }*/
 
   private void iterateChildren(int startLevel, Iterator<Page> childIterator,
-      java.util.List<ListItem> listItemsHierarchy) {
+      java.util.List<ListItemOld> listItemsHierarchy) {
     while (childIterator.hasNext()) {
       Page child = childIterator.next();
       listItems.add(child);
@@ -294,7 +293,7 @@ import org.slf4j.LoggerFactory;
       if (child.getDepth() - startLevel < childDepth) {
 
         Iterator<Page> iterator = child.listChildren();
-        java.util.List<ListItem> childList = new ArrayList<>();
+        java.util.List<ListItemOld> childList = new ArrayList<>();
         iterateChildren(startLevel, iterator, childList);
         item.setChildListItems(childList);
         //item.setChildListItems(collectChildren(startLevel, child));
