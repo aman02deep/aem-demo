@@ -110,7 +110,7 @@ public class ListItem {
   }
 
   public ValueMap getItemResourceProperties() {
-    return pageContentResource.getValueMap();
+    return Optional.ofNullable(pageContentResource.getValueMap()).orElse(ValueMap.EMPTY);
   }
 
   public Resource getItemResource() {
