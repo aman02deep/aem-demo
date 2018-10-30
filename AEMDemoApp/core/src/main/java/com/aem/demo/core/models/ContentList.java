@@ -1,10 +1,8 @@
 package com.aem.demo.core.models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +16,6 @@ import javax.annotation.PostConstruct;
 import javax.jcr.RepositoryException;
 
 import com.day.cq.commons.RangeIterator;
-import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.search.Predicate;
 import com.day.cq.search.SimpleSearch;
 import com.day.cq.search.result.Hit;
@@ -29,6 +26,7 @@ import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.designer.Style;
+import com.google.gson.GsonBuilder;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -123,21 +121,37 @@ import org.slf4j.LoggerFactory;
   private String sortOrder;
 
   private List<ListItem> listItems;
+  private List<ListItem> listItemsHierarchical;
 
   @PostConstruct
   private void init() {
+    this.listItems = populateListItems(Source.fromString(listFrom));
+    this.listItemsHierarchical = createListItemsHierarchical();
   }
 
   public List<ListItem> getListItemsHierarchical() {
-    List<ListItem> listItems = populateChildListItemsHierarchical();
-    listItems = sortListItems(listItems);
-    listItems = setMaxItems(listItems);
-    return listItems;
+    return this.listItemsHierarchical;
   }
 
   public List<ListItem> getListItems() {
-    List<ListItem> listItems = populateListItems(Source.fromString(listFrom));
-    return listItems;
+    return this.listItems;
+  }
+
+  public String getListItemsJson() {
+    final GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+    return builder.create().toJson(this.listItems);
+  }
+
+  public String getListItemsHierarchicalJson() {
+    final GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+    return builder.create().toJson(this.listItemsHierarchical);
+  }
+
+  public List<ListItem> createListItemsHierarchical() {
+    List<ListItem> listItemsTemp = populateChildListItemsHierarchical();
+    listItemsTemp = sortListItems(listItemsTemp);
+    listItemsTemp = setMaxItems(listItemsTemp);
+    return listItemsTemp;
   }
 
   public static Stream<ListItem> toFlatList(List<ListItem> collection) {
@@ -173,15 +187,15 @@ import org.slf4j.LoggerFactory;
   }
 
   private List<ListItem> populateStaticListItems() {
-    List listItems = new ArrayList<ListItem>();
+    List listItemsTemp = new ArrayList<ListItem>();
     Resource staticListRoot = resource.getChild(Constants.PN_PAGES);
     if (Objects.nonNull(staticListRoot) && staticListRoot.hasChildren()) {
       staticListRoot.getChildren().forEach(child -> {
         LinkModel item = child.adaptTo(LinkModel.class);
-        listItems.add(new ListItem(request, item));
+        listItemsTemp.add(new ListItem(request, item));
       });
     }
-    return listItems;
+    return listItemsTemp;
   }
 
   private List<ListItem> populateChildListItemsHierarchical() {
@@ -209,10 +223,10 @@ import org.slf4j.LoggerFactory;
   }
 
   private List<ListItem> populateTagListItems() {
-    List<ListItem> listItems = new ArrayList<>();
+    List<ListItem> items = new ArrayList<>();
     Page rootPage = getRootPage(tagSearchRoot);
     if (Objects.isNull(rootPage)) {
-      return listItems;
+      return items;
     }
 
     TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
@@ -227,16 +241,16 @@ import org.slf4j.LoggerFactory;
       while (resourceRangeIterator.hasNext()) {
         Page containingPage = pageManager.getContainingPage(resourceRangeIterator.next());
         Optional.ofNullable(containingPage)
-            .ifPresent(page -> listItems.add(new ListItem(request, containingPage)));
+            .ifPresent(page -> items.add(new ListItem(request, containingPage)));
       }
     }
-    return listItems;
+    return items;
   }
 
   private List<ListItem> populateSearchListItems() {
-    List<ListItem> listItems = new ArrayList<>();
+    List<ListItem> items = new ArrayList<>();
     if (StringUtils.isBlank(query)) {
-      return listItems;
+      return items;
     }
 
     SimpleSearch search = resource.adaptTo(SimpleSearch.class);
@@ -246,23 +260,23 @@ import org.slf4j.LoggerFactory;
       search.addPredicate(new Predicate("type", "type").set("type", NameConstants.NT_PAGE));
       search.setHitsPerPage(limit);
       try {
-        listItems.addAll(collectSearchResults(search.getResult()));
+        items.addAll(collectSearchResults(search.getResult()));
       } catch (RepositoryException e) {
         LOGGER.error("Unable to retrieve search results for query.", e);
       }
     }
-    return listItems;
+    return items;
   }
 
   private List<ListItem> collectSearchResults(SearchResult result) throws RepositoryException {
-    List<ListItem> listItems = new ArrayList<>();
+    List<ListItem> items = new ArrayList<>();
     for (Hit hit : result.getHits()) {
       Page containingPage = pageManager.getContainingPage(hit.getResource());
       if (Objects.nonNull(containingPage)) {
-        listItems.add(new ListItem(request, containingPage));
+        items.add(new ListItem(request, containingPage));
       }
     }
-    return listItems;
+    return items;
   }
 
   private Function getListItemSortFunction() {
@@ -285,23 +299,23 @@ import org.slf4j.LoggerFactory;
     return null;
   }
 
-  private List<ListItem> sortListItems(List<ListItem> listItems) {
+  private List<ListItem> sortListItems(List<ListItem> items) {
     if (StringUtils.isNotBlank(orderBy) && !OrderBy.fromString(orderBy).equals(OrderBy.NO_ORDER)) {
       Comparator<ListItem> itemComparator = Comparator.comparing(getListItemSortFunction());
       if (SortOrder.fromString(sortOrder).equals(SortOrder.ASC)) {
-        listItems.sort(Comparator.nullsLast(itemComparator));
+        items.sort(Comparator.nullsLast(itemComparator));
       } else {
-        listItems.sort(Comparator.nullsLast(itemComparator.reversed()));
+        items.sort(Comparator.nullsLast(itemComparator.reversed()));
       }
     }
-    return listItems;
+    return items;
   }
 
-  private List<ListItem> setMaxItems(List<ListItem> listItems) {
-    if (maxItems != 0 && listItems.size() > maxItems) {
-      return listItems.subList(0, maxItems);
+  private List<ListItem> setMaxItems(List<ListItem> items) {
+    if (maxItems != 0 && items.size() > maxItems) {
+      return items.subList(0, maxItems);
     }
-    return listItems;
+    return items;
   }
 
   private Page getRootPage(String pagePath) {
@@ -309,8 +323,7 @@ import org.slf4j.LoggerFactory;
     return pageManager.getContainingPage(resourceResolver.getResource(parentPath));
   }
 
-
-  protected enum Source {
+  private enum Source {
     CHILDREN("children"), STATIC("static"), SEARCH("search"), TAGS("tags"), EMPTY(
         StringUtils.EMPTY);
 

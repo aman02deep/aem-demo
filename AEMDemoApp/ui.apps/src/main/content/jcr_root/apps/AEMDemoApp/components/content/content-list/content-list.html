@@ -7,6 +7,18 @@
   </li>
 </ol>
 
+<ol data-sly-list.item="${list.listItems}">
+  <li>
+    ${item.title} : ${item.url}
+  </li>
+</ol>
+
+<div>
+  Json : <br/>
+  ${list.listItemsJson}
+</div>
+
+
 
 <div data-sly-test="${list.displayAs == 'card'}"
      class="row"

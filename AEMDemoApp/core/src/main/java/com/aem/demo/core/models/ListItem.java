@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.day.cq.wcm.api.Page;
+import com.google.gson.annotations.Expose;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -24,14 +25,26 @@ public class ListItem {
    * if List item is an External link then LinkModel details will be available and properties and
    * Resource will not be available
    */
+  @Expose
   private boolean isExternalLink;
+  @Expose
   private String linkPath;
+  @Expose
   private String title;
+  @Expose
   private String targetBlank;
+  @Expose
+  private String path;
+  @Expose
+  private String url;
+  @Expose
+  private ValueMap properties;
 
-  protected SlingHttpServletRequest request;
-  protected Page page;
-  protected Resource pageContentResource;
+  private SlingHttpServletRequest request;
+  private Page page;
+  private Resource pageContentResource;
+
+  @Expose
   private List<ListItem> childListItems;
 
   public ListItem(SlingHttpServletRequest request, Page page) {
@@ -40,7 +53,10 @@ public class ListItem {
     this.page = page;
     this.pageContentResource = page.getContentResource();
     this.childListItems = new ArrayList();
+    this.properties = page.getProperties();
     setTitle("");
+    setPath();
+    setUrl();
   }
 
   public ListItem(SlingHttpServletRequest request, LinkModel linkModel) {
@@ -48,15 +64,12 @@ public class ListItem {
 
     if (Objects.nonNull(linkModel)) {
       if (linkModel.isAbsoluteURL()) {
-
         isExternalLink = true;
         this.linkPath = linkModel.getLinkPath();
         this.title = linkModel.getLinkName();
         this.targetBlank = linkModel.getTargetBlank();
-
       } else {
         isExternalLink = false;
-
         ResourceResolver resolver = request.getResourceResolver();
         Resource pageResource = resolver.getResource(linkModel.getLinkPath());
         if (Objects.nonNull(pageResource)) {
@@ -64,11 +77,13 @@ public class ListItem {
           this.pageContentResource = page.getContentResource();
           this.childListItems = new ArrayList();
           this.targetBlank = linkModel.getTargetBlank();
-
+          this.properties = page.getProperties();
           // overriding the Title with authored title
           setTitle(linkModel.getLinkName());
         }
       }
+      setPath();
+      setUrl();
     }
   }
 
@@ -82,31 +97,43 @@ public class ListItem {
           .orElseGet(() -> pgTitle.orElseGet(() -> page.getName()))));
   }
 
-  public String getTitle() {
-    return title;
-  }
-
-  public String getPath() {
+  public void setPath() {
     if (this.isExternalLink) {
-      return this.linkPath;
+      this.path = this.linkPath;
     } else {
-      return page.getPath();
+      this.path = page.getPath();
     }
   }
 
-  public String getURL() {
+  public void setUrl() {
     if (this.isExternalLink) {
-      return this.linkPath;
+      this.url = this.linkPath;
     } else {
       String vanityURL = page.getVanityUrl();
-      return StringUtils.isEmpty(vanityURL)
+      this.url = StringUtils.isEmpty(vanityURL)
           ? request.getContextPath() + page.getPath() + Constants.HTML_SUFFIX
           : request.getContextPath() + vanityURL;
     }
   }
 
+  public String getTitle() {
+    return title;
+  }
+
+  public String getPath() {
+    return this.path;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public String getTargetBlank() {
+    return targetBlank;
+  }
+
   public ValueMap getProperties() {
-    return page.getProperties();
+    return this.properties;
   }
 
   public ValueMap getItemResourceProperties() {
