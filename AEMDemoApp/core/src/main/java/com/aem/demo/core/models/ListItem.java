@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.day.cq.wcm.api.NameConstants;
 import com.day.cq.wcm.api.Page;
 import com.google.gson.annotations.Expose;
 
@@ -19,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class ListItem {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(PageListItemImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ListItem.class);
 
   /**
    * if List item is an External link then LinkModel details will be available and properties and
@@ -61,8 +62,9 @@ public class ListItem {
 
   public ListItem(SlingHttpServletRequest request, LinkModel linkModel) {
     this.request = request;
+    ResourceResolver resolver = request.getResourceResolver();
 
-    if (Objects.nonNull(linkModel)) {
+    if (isValidLinkModel(linkModel, resolver)) {
       if (linkModel.isAbsoluteURL()) {
         isExternalLink = true;
         this.linkPath = linkModel.getLinkPath();
@@ -70,21 +72,23 @@ public class ListItem {
         this.targetBlank = linkModel.getTargetBlank();
       } else {
         isExternalLink = false;
-        ResourceResolver resolver = request.getResourceResolver();
         Resource pageResource = resolver.getResource(linkModel.getLinkPath());
-        if (Objects.nonNull(pageResource)) {
-          this.page = pageResource.adaptTo(Page.class);
-          this.pageContentResource = page.getContentResource();
-          this.childListItems = new ArrayList();
-          this.targetBlank = linkModel.getTargetBlank();
-          this.properties = page.getProperties();
-          // overriding the Title with authored title
-          setTitle(linkModel.getLinkName());
-        }
+        this.page = pageResource.adaptTo(Page.class);
+        this.pageContentResource = page.getContentResource();
+        this.childListItems = new ArrayList();
+        this.targetBlank = linkModel.getTargetBlank();
+        this.properties = page.getProperties();
+        // overriding the Title with authored title
+        setTitle(linkModel.getLinkName());
       }
       setPath();
       setUrl();
     }
+  }
+
+  public static boolean isValidLinkModel(LinkModel linkModel, ResourceResolver resolver) {
+    return Objects.nonNull(linkModel) &&
+        (linkModel.isAbsoluteURL() || Objects.nonNull(resolver.getResource(linkModel.getLinkPath())));
   }
 
   public void setTitle(String title) {
@@ -157,6 +161,6 @@ public class ListItem {
   }
 
   public Calendar getLastModified() {
-    return page.getLastModified();
+    return properties.get(NameConstants.PN_PAGE_LAST_MOD, Calendar.class);
   }
 }

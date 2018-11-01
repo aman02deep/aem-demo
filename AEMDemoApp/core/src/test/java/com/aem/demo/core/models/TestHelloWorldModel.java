@@ -22,16 +22,21 @@ import static org.mockito.Mockito.when;
 
 import java.util.UUID;
 
+import io.wcm.testing.mock.aem.junit.AemContext;
 import junitx.util.PrivateAccessor;
 
 import org.apache.sling.settings.SlingSettingsService;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
  * Simple JUnit test verifying the HelloWorldModel
  */
 public class TestHelloWorldModel {
+
+    @Rule
+    public final AemContext context = new AemContext();
 
     //@Inject
     private HelloWorldModel hello;

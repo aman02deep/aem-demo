@@ -44,7 +44,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Model(adaptables = {SlingHttpServletRequest.class}) public class ContentList {
+@Model(adaptables = {SlingHttpServletRequest.class})
+public class ContentList {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ContentList.class);
 
@@ -192,7 +193,9 @@ import org.slf4j.LoggerFactory;
     if (Objects.nonNull(staticListRoot) && staticListRoot.hasChildren()) {
       staticListRoot.getChildren().forEach(child -> {
         LinkModel item = child.adaptTo(LinkModel.class);
-        listItemsTemp.add(new ListItem(request, item));
+        if (ListItem.isValidLinkModel(item, resourceResolver)) {
+          listItemsTemp.add(new ListItem(request, item));
+        }
       });
     }
     return listItemsTemp;

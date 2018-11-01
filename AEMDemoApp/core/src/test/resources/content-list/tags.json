@@ -1,0 +1,15 @@
+{
+  "jcr:primaryType": "cq:Tag",
+  "test_category": {
+    "jcr:primaryType": "cq:Tag",
+    "test_tag": {
+      "jcr:primaryType": "cq:Tag"
+    },
+    "test_tag_2": {
+      "jcr:primaryType": "cq:Tag"
+    },
+    "test_tag_3": {
+      "jcr:primaryType": "cq:Tag"
+    }
+  }
+}
